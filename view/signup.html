@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <title>Signup</title>
+</head>
+
+<style>
+    body {
+        background-image: url('./img/Untitled-1.jpg');
+        background-size: cover;
+    }
+
+    #BG {
+        background-image: url('./img/bg1.jpg');
+        background-size: cover;
+        height: 600px;
+        margin-top: 80px;
+    }
+
+    #SBG {
+        /* background-color: #fff; */
+        background: transparent;
+        /* border: 1px solid ; */
+    }
+
+
+
+    .form-control {
+        background: transparent;
+        border: 1px solid #ffff00;
+
+    }
+
+    .btn {
+        max-width: 250px;
+        padding: 1rem;
+        position: relative;
+        background: linear-gradient(to right, purple, aqua);
+        padding: 3px;
+    }
+
+    .btn {
+        background: linear-gradient(#171717, #171717) padding-box, linear-gradient(to right, purple 0%, aqua 100%) border-box;
+        border: 3px solid transparent;
+        color: #fff;
+        background-color: white;
+        border-radius: 25px;
+        margin-top: 60px;
+        margin-bottom: 0px;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 7px 22px;
+        transition: all .5s ease;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+    }
+
+    .btn:hover {
+        background-color: #222;
+        border: 3px solid transparent;
+        color: aqua;
+        transition: all .5s ease;
+        transition-property: all;
+        transition-duration: 0.5s;
+        transition-timing-function: ease;
+        transition-delay: 0s;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="row my-4" id="bb">
+            <div class="col-md-6   text-center" id="BG">
+                <img src="./img/copy.png" style="width: 200px;margin-top: 120px;">
+                <h3 style="color: white;" class="my-4">Welcome To MR.Copy Shop</h3>
+                <div style="color: white;">
+                    You can print your document anywhere do you want
+                </div>
+            </div>
+            <div class="col-md-1">
+
+            </div>
+            <!-- <div class="col-md-1">
+
+            </div> -->
+            <div class="col-md-5   text-center" id="SBG">
+                <h2 class="mt-5" style="color: white;">SIGNUP</h2> <br>
+                <input type="text" class="form-control my-4 " id="txtname" placeholder="FIRSTNAME LASTNAME"
+                    style="width: 100%; height: 45px;">
+                <input type="text" class="form-control my-4 " id="txtphone" placeholder="PHONE"
+                    style="width: 100%; height: 45px;">
+                <input type="text" class="form-control my-4 " id="txtmail" placeholder="EMAIL"
+                    style="width: 100%; height: 45px;">
+                <input type="text" class="form-control my-4 " id="txtusername" placeholder="USERNAME"
+                    style="width: 100%; height: 45px;">
+                <input type="text" class="form-control my-4 " id="txtpass" placeholder="PASSWORDS"
+                    style="width: 100%; height: 45px;">
+                <div class="form-group">
+                    <select class="form-control" id="school">
+                        <option value="1">School of Information Technology</option>
+                        <option value="2">School of Liberal Arts</option>
+                        <option value="3">School of Science</option>
+                        <option value="4">School of Management</option>
+                        <option value="5">School of Agro-Industry</option>
+                        <option value="6">School of Law</option>
+                        <option value="7">School of Cosmetic Science</option>
+                        <option value="8">School of Health Science</option>
+                        <option value="9">School of Nursing</option>
+                        <option value="10">School of Anti-Aging and Regenerative Medicine</option>
+                        <option value="11">School of Medicine</option>
+                        <option value="12">School of Dentistry</option>
+                        <option value="13">School of Social Innovation</option>
+                        <option value="14">School of Sinology</option>
+                    </select>
+                </div>
+                <input type="checkbox" id=""><span style="color: white;"> I Agree<span style="color:royalblue;"> Term of
+                        Service</span> and <span style="color:royalblue ;"> Privacy Policy</span> </span>
+                <br><br>
+                <button class="btn btn my-3" style="width: 100%;height: 50px;">SINGUP</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $("form").submit(function (e) {
+            // e.preventDefault();
+            const name = $("#txtname").val();
+            const phone = $("#txtphone").val();
+            const email = $("#txtmail").val();
+            const username = $("#txtusername").val();
+            const pass = $("#txtpass").val();
+            const school = $("#school").val()
+
+
+
+            $.ajax({
+                method: "POST",
+                url: "/login",
+                data: { U_USERNAME: username, U_PASSWORD: pass, U_NAME:name, U_PHONE:phone ,U_EMAIL:email, S_ID:school}
+            }).done(function (data, state, shr) {
+                alert(data);
+                window.location.replace(data);
+            }).fail(function (xhr, state, error) {
+                // $("#a").html(data)
+                $("#errorMessage").text(xhr.responseText)
+                $(".alert").show().fadeOut(3000);
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>

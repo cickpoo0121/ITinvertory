@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+	<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+	<script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+	<script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+</head>
+<style>
+	/* input[type="text"],
+	select.form-control {
+	  background: transparent;
+	  border: none;
+	  border-bottom: 1px solid #000000;
+	  -webkit-box-shadow: none;
+	  box-shadow: none;
+	  border-radius: 0;
+	} */
+
+	/* .btn{
+        background: transparent;
+        border: 6px solid #000000;
+	} */
+	/* .btn {
+		max-width: 250px;
+		padding: 1rem;
+		position: relative;
+		background: linear-gradient(to right, red, purple);
+		padding: 3px;
+	} */
+	/* .btn {
+		background: linear-gradient(#FFF, #FFF) padding-box, linear-gradient(to right, purple 0%, aqua 100%) border-box;
+		border: 3px solid transparent;
+		color: #000;
+		background-color: white;
+		border-radius: 25px;
+		margin-top: 60px;
+		margin-bottom: 0px;
+		font-weight: 600;
+		font-size: 14px;
+		padding: 7px 22px;
+		transition: all .5s ease;
+		margin-left: auto;
+		margin-right: auto;
+		display: block;
+	}
+
+	.btn:hover {
+		background: linear-gradient(to right, blue 0%, green 100%);
+		border: 3px solid transparent;
+		color: #FFF;
+		transition: all .5s ease;
+		transition-property: all;
+		transition-duration: 0.5s;
+		transition-timing-function: ease;
+		transition-delay: 0s;
+	}
+	
+
+	#SelectTask {
+        background-color: yellow;
+        color: #fff;
+	}
+	body{
+		background-color: #ffffff
+	} */
+
+	td img {
+		width: 50%;
+	}
+
+	td btn {
+		text-align: center;
+	}
+</style>
+
+<script>
+	$(document).ready(function () {
+		var dataSet = [
+			{
+				"id": "./img/eng1.jpg",
+				"name": "Ethan Hunt",
+				"gender": "Male",
+				"major": "CS",
+				"school": "IT",
+			},
+			{
+				"id": "./img/eng2.jpg",
+				"name": "Ethan Hunt",
+				"gender": "Male",
+				"major": "CS",
+				"school": "IT",
+			},
+
+
+		];
+
+		// var a = data.id
+
+		var table = $("table#mytable").DataTable({
+			data: dataSet,
+			"searching": false,
+			"paging": false,
+			"ordering": false,
+			"info": false,
+			deferRender: true,
+			columns: [
+
+				{
+					data: 'id',
+					render: function (data, type, full, meta) {
+						return '<img src="' + data + '" no-repeat center center /cover >';
+						return image ? `<div style=" background-image: url('${data}') no-repeat center center /cover "></div>` : 'No image';
+					}
+				},
+				// { data: "id", title: "ID" },
+				{ data: "" },
+				{ data: "name" },
+				{ data: "" },
+				// { data: "school" },
+				{ defaultContent: "<button id='btndelete' class='btn btn-danger'>Delete</button> <button id='edit' class='btn btn-warning'>Edit</button>", orderable: false }
+			],
+			responsive: true
+		});
+		// $("td").width(100)
+	});
+	$("#mytable tbody").on('click', '#btnPrint', function () {
+		var record = table.row($(this).parents("tr")).data();
+		window.location.replace("./printuser.html")
+	});
+</script>
+
+<body>
+
+	<br><br><br><br><br><br><br><br><br> <br><br>
+	<div class="container text-center mt-5">
+		<div class="row">
+			<div class="col-md-3">
+
+			</div>
+			<div class="col-md-3">
+				<button class="btn  btn-warning text-center" style="width: 100%;height: 80px;"><span
+						style="font-size: 32px;">PrintRequest</span></button>
+			</div>
+			<div class="col-md-3">
+				<button class="btn  btn-warning" style="width: 100%;height: 80px;"><span
+						style="font-size: 32px;">AddSheets</span></button>
+			</div>
+			<div class="col-md-3">
+
+			</div>
+		</div>
+	</div>
+
+	<div class="col--center alignc">
+		<h1 class="mg-none text__general--text-inverted ff--title font-h3">
+			Web Banner Vectors, Photos &amp; PSD </h1>
+		<h3 class="ff--base title first heading-inverted line-height-md font-lg mg-none regular">
+			<span class="total-resources">+70,000</span> Free graphic resources. </h3>
+	</div>
+
+
+	<!-- <div class="col-md-12">
+				<table id="mytable" class="table  table-bordered  " cellspacing="0" cellpadding="0" width="100%"></table>
+			</div> -->
+	<!-- <div class="input-group">
+		<div class="input-group-prepend">
+			<span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+		</div> -->
+	<!-- <div class="custom-file">
+			<input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+			<label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+		</div> -->
+	</div>
+
+	<form class="md-form">
+		<!-- <div class="file-field"> -->
+		<div class="btn btn-primary btn-sm float-left">
+			<!-- <span>Choose file</span> -->
+			<input type="file">
+
+		</div>
+		<button id="aa">sadadasdasd</button>
+		<!-- <div class="file-path-wrapper">
+				<input class="file-path validate" type="text" placeholder="Upload your file">
+			  </div> -->
+		<!-- </div> -->
+	</form>
+</body>
+
+</html>

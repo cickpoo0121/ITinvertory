@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+    <title>Pring request</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar  ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><img src="./img/logo1.png" style="width: 150px;" alt=""></a>
+            <div class="list-inline mx-auto justify-content-center">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="/admin" class="nav-link">Home</a></li>
+                    <li class="nav-item"> <a id="rate" class="nav-link">Rate Price</a></li>
+                    <li class="nav-item"> <a href="#" class="nav-link">Services</a></li>
+                    <li class="nav-item"> <a href="#" class="nav-link">Contact</a></li>
+
+                </ul>
+            </div>
+            <button class="btn btn-outline-warning" style="width: 150px; border: none;"><i
+                    class='fas fa-user-circle'></i> Admin</button>
+
+            <button class="btn btn-outline-danger" style="width: 150px; border: none;" id="btnsignout"><i
+                    class='fas fa-user-circle'></i>LOG OUT</button>
+
+        </div>
+    </nav>
+
+    <div class="container text-center">
+        <div class="text-center mt-3">
+            <img src="./img/print.png" style="width: 10%;"><span class="mt-5" style="font-size: 50px;">FILES
+                PRINT</span>
+        </div>
+
+        <table id="mytable" class="table table-striped table-bordered" style="width: 100%">
+        </table>
+    </div>
+
+    <!-- Modal show -->
+    <div class="modal fade" id="show" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title text-light">Print request</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    COPIE: 1 <br>
+                    Print all page <br>
+                    Paper: A4 <br>
+                    Color: Black <br>
+                    Duplex Print : One side <br>
+                    Orientation: Portrait <br>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Dowload</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Rate-->
+        <div class="modal fade " id="modalrate" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-body">
+                    <div>
+                        <img src="./img/rate.jpg" style="width: 200%; ">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer font-small teal pt-4">
+        <div class="container-fluid text-center text-md-left" style="background-color: #242424;">
+            <div class="row ">
+                <div class="col-md-1">
+
+                </div>
+                <div class="col-md-4 mt-md-0 mt-3  text-light">
+                    <h3 class="text-uppercase mt-3 " id="everyday">EVERY DAY</h3>
+                    <h3>08:00- AM - 11:00 PM</h3>
+                </div>
+                <hr class="clearfix w-100 d-md-none pb-3 ">
+                <div class="col-md-5 mb-md-0 mb-3  text-light ">
+                    <div class="footercontact mt-3 text-right">
+                        <h2 class="text-uppercase ">CONTACT US</h2>
+                        <img src="./img/tel.png" style=" width:7%; height: 30% ;"> 085-325-411
+                        <img src="./img/fax.png" style=" width:7%; height: 30% ;"> 053-912-040
+                        <img src="./img/email.png" style="width:7%; height: 30% ;"> mrcopystaff@gmail.com
+                    </div>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <style>
+        th {
+            background-color: #3f117d;
+            color: white;
+        }
+
+        #SelectTask {
+            background-color: #faa71b;
+            color: #fff;
+
+        }
+
+        #Success {
+            background-color: green;
+            color: white;
+        }
+
+        #Waiting {
+            background-color: #faa71b;
+            color: white;
+        }
+
+        #Printing {
+            background-color: blue;
+            color: white;
+        }
+
+        .badge {
+            background-color: #f9a81b;
+            /* font-size: 20px; */
+            margin-top: 3px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+
+            var dataSet = [
+
+                {
+                    "file": "English1.doc",
+                    "name": "Cick poo",
+                    "phone": "0698753104",
+                    "date": "13/11/2019",
+                    "email": "61313002@lamduan.mfu.ac.th",
+                },
+                {
+                    "file": "FileWill.doc",
+                    "name": "Larisa Mary",
+                    "phone": "0876321598",
+                    "date": "16/11/2019",
+                    "email": "61313009@lamduan.mfu.ac.th"
+                },
+                {
+                    "file": "ManAndSo.doc",
+                    "name": "Jane Doe",
+                    "phone": "0631254609",
+                    "date": "20/11/2019",
+                    "email": "61313022@lamduan.mfu.ac.th"
+                },
+                {
+                    "file": "English3.doc",
+                    "name": "Doeg Lee",
+                    "phone": "0928953102",
+                    "date": "20/11/2019",
+                    "email": "61313065@lamduan.mfu.ac.th"
+                },
+                {
+                    "file": "Math_1.doc",
+                    "name": "Jane Jane",
+                    "phone": "0831367895",
+                    "date": "26/11/2019",
+                    "email": "61313078@lamduan.mfu.ac.th"
+                },
+                {
+                    "file": "wk6.doc",
+                    "name": "Anu Doey",
+                    "phone": "089693156",
+                    "date": "28/11/2019",
+                    "email": "61313017@lamduan.mfu.ac.th"
+                },
+                {
+                    "file": "สรุปจีน1.doc",
+                    "name": "Janey Dong",
+                    "phone": "0873168425",
+                    "date": "30/11/2019",
+                    "email": "61313028@lamduan.mfu.ac.th"
+                },
+                {
+                    "file": "DataBase.doc",
+                    "name": "Jane Doe",
+                    "phone": "0966303125",
+                    "date": "2/12/2019",
+                    "email": "61313022@lamduan.mfu.ac.th"
+                }
+            ];
+
+            var table = $("#mytable").DataTable({
+                data: dataSet,
+                deferRender: true,
+                columns: [
+                    { data: "file", title: "File" },
+                    { data: "name", title: "Name" },
+                    { data: "phone", title: "Phone" },
+                    { data: "email", title: "Email" },
+                    { data: "date", title: "Date" },
+                    { title: "Status", defaultContent: "<span class='badge badge-warning text-light'><h6 class='mt-2'>Waiting</h6></span>", orderable: false },
+                    { title: "View", defaultContent: "<span id='btnPrint' class='btn btn-primary'>Dowload</span> <span id='btnConf' class='btn btn-success'>Confirm</span>", orderable: false }
+                ],
+                responsive: true
+            });
+
+
+            $("#mytable tbody").on('click', '#SelectTask', function () {
+                // $("#mytable tbody").on('click', '#SelectTask', function () {
+                $('#SelectTask').change(function () {
+                    var ch = $("#SelectTask").val();
+                    console.log(ch)
+                    if (ch == 3) {
+                        $('#SelectTask').css("background-color", "green");
+                        $('#SelectTask').css("color", "white");
+                    }
+                    else if (ch == 1) {
+                        $('#SelectTask').css("background-color", "#faa71b");
+                        $('#SelectTask').css("color", "white");
+                    } else {
+                        $('#SelectTask').css("background-color", "blue");
+                        $('#SelectTask').css("color", "white");
+                    }
+                });
+                // $('#SelectTask').change(function () {
+                //     $(this).find('option').css('background-color', 'transparent');
+                //     $(this).find('option:selected').css('background-color', 'red');
+                // }).trigger('change');
+            });
+
+
+
+            $("#mytable tbody").on('click', '#btnPrint', function () {
+                $("#show").modal("show");
+            });
+            $("#btnsignout").click(function (e) {
+                window.location.replace("/")
+            });
+            $("#rate").click(function () {
+                $("#modalrate").modal("show");
+                // $("#modalAdd").modal("hide");
+            })
+        });
+
+
+    </script>
+</body>
+
+</html>
