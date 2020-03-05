@@ -181,6 +181,23 @@ app.get("/committee/:years", function (req, res) {
     });
 });
 
+//show committee in current year
+app.get("/committee/:years", function (req, res) {
+    const years = req.params.years
+    const sql = "SELECT email FROM `workyear` WHERE work_year=?";
+    con.query(sql, [years], function (err, result, fields) {
+        if (err) {
+            // console.log(err)
+            res.status(500).send("Server error");
+            console.log(err)
+        }
+        else {
+            res.json(result);
+            console.log(years)
+        }
+    });
+});
+
 
 
 
