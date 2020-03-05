@@ -2,7 +2,7 @@ let config={
     host:"localhost",
     user:"root",
     password:"",
-    database:"inventory"
+    database:"itinventory"
 };
 
 module.exports=config;

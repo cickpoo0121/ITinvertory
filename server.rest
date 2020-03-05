@@ -1,17 +1,43 @@
 
 //=========User========
 
-### newest sheet
-get http://localhost:8080/landing
+### date alert
+get http://localhost:8080/datealert
 Content-Type: application/json
 
-### sheet preview
-get http://localhost:8080/sheetpreview/1
+### get years
+get http://localhost:8080/years
 Content-Type: application/json
 
-###
-get http://localhost:8080/sheetrecom/19
+### show product of guset page
+get http://localhost:8080/product/guest
 Content-Type: application/json
+
+### productstatus
+get http://localhost:8080/status/product
+Content-Type: application/json
+
+### show product of user home page
+get http://localhost:8080/product/user
+Content-Type: application/json
+
+### show import information
+get http://localhost:8080/product/import/2020
+Content-Type: application/json
+
+
+### show all status of product and who scan 
+get http://localhost:8080/product/status/2020
+Content-Type: application/json
+
+### show commitee in current year
+get http://localhost:8080/committee/2020
+Content-Type: application/json
+
+
+
+
+
 
 ### uploadsheet
 post http://localhost:8080/uploadsheet1
