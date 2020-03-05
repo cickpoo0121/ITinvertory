@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <title>Home</title>
+</head>
+<style>
+    body {
+        background-image: url('./img/Untitled-1.jpg');
+        background-size: cover;
+    }
+
+    .carousel-inner img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .carousel-item {
+        transition: -webkit-transform 0.5s ease;
+        transition: transform 0.5s ease;
+        transition: transform 0.5s ease, -webkit-transform 0.5s ease;
+        -webkit-backface-visibility: visible;
+        backface-visibility: visible;
+    }
+
+    .carousel-caption {
+        top: 50%;
+        text-align: center;
+    }
+
+    footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: auto;
+    }
+</style>
+
+<body>
+    <!-- <div class="container" id="nnav"> -->
+
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar  ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><img src="./img/logo1.png" style="width: 150px;" alt=""></a>
+            <div class="list-inline mx-auto justify-content-center">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a href="#" class="nav-link">Home</a></li>
+                    <li class="nav-item"> <a id="rate" class="nav-link">Rate Price</a></li>
+                    <li class="nav-item"> <a href="#" class="nav-link">Services</a></li>
+                    <li class="nav-item"> <a href="#" class="nav-link">Contact</a></li>
+
+                </ul>
+            </div>
+            <button class="btn btn-outline-warning" style="width: 150px; border: none;"><i
+                    class='fas fa-user-circle'></i> Admin</button>
+
+            <button class="btn btn-outline-danger" style="width: 150px; border: none;" id="btnsignout"><i
+                    class='fas fa-user-circle'></i>LOG OUT</button>
+
+        </div>
+    </nav>
+
+    <br><br><br><br><br><br><br>
+    <div class="container text-center mt-5">
+        <div class="row">
+            <div class="col-md-2">
+
+            </div>
+            <div class="col-md-4">
+                <a href="/require">
+                    <button type="button" class="btn btn-warning  text-center" id="print" style="width: 300px;"><img
+                            src="./img/printer.png" style="width: 50%;"><span
+                            style="font-size: 30px;;">PrintRequest</span>
+                    </button>
+                </a>
+
+                <!-- <button class="btn  btn-warning text-center"  style="width: 100%;height: 80px;" ><span
+                        style="font-size: 32px;">PrintRequest</span></button> -->
+            </div>
+            <div class="col-md-4">
+                <a href="/addsheet">
+                    <button type="button" class="btn btn-warning btn-md" id="sheet" style="width: 300px;"><img
+                            src="./img/sheet.png" style="width: 50%;"><span
+                            style="font-size: 30px;;">AddSheets</span></button>
+                </a>
+                <!-- <button class="btn  btn-warning"  style="width: 100%;height: 80px;"><span
+                        style="font-size: 32px;">AddSheets</span></button> -->
+            </div>
+            <div class="col-md-2">
+
+            </div>
+        </div>
+        <!-- Modal Rate-->
+        <div class="modal fade " id="modalrate" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-body">
+                    <div>
+                        <img src="./img/rate.jpg" style="width: 200%; ">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="page-footer font-small teal pt-4">
+        <div class="container-fluid text-center text-md-left" style="background-color: #242424;">
+            <div class="row ">
+                <div class="col-md-1">
+
+                </div>
+                <div class="col-md-4 mt-md-0 mt-3  text-light">
+                    <h3 class="text-uppercase mt-3 " id="everyday">EVERY DAY</h3>
+                    <h3>08:00- AM - 11:00 PM</h3>
+                </div>
+                <hr class="clearfix w-100 d-md-none pb-3 ">
+                <div class="col-md-5 mb-md-0 mb-3  text-light ">
+                    <div class="footercontact mt-3 text-right">
+                        <h2 class="text-uppercase ">CONTACT US</h2>
+                        <img src="./img/tel.png" style=" width:7%; height: 30% ;"> 085-325-411
+                        <img src="./img/fax.png" style=" width:7%; height: 30% ;"> 053-912-040
+                        <img src="./img/email.png" style="width:7%; height: 30% ;"> mrcopystaff@gmail.com
+                    </div>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function () {
+            // $("#print").click(function () {
+            //     window.location.replace("./printAdmin.html")
+            // });
+            // $("#sheet").click(function () {
+            //     window.location.replace("./addsheet.html")
+            // });
+
+            $("#btnsignout").click(function (e) {
+                window.location.replace("/")
+            });
+            $("#rate").click(function () {
+                $("#modalrate").modal("show");
+                // $("#modalAdd").modal("hide");
+            })
+        });
+    </script>
+</body>
+
+</html>

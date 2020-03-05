@@ -50,9 +50,9 @@ app.use(express.static(path.join(__dirname, "public")));
 
 //===========================User================================//
 
-//newest 3 sheet
-app.get("/landing", function (req, res) {
-    const sql = "SELECT invertorynumber,asset,subnumber,description,model,serialnumber,location,room,datereceive,originalvalue,costcenter,department,vendername,status,image FROM `product` WHERE status=1";
+//get years
+app.get("/years", function (req, res) {
+    const sql = "SELECT work_year FROM `workyear`";
     con.query(sql, function (err, result, fields) {
         if (err) {
             // console.log(err)
@@ -66,10 +66,42 @@ app.get("/landing", function (req, res) {
     });
 });
 
-//sheet preview
-app.get("/sheetpreview/:id", function (req, res) {
+//date alert
+app.get("/datealert", function (req, res) {
+    const sql = "SELECT * FROM `datealert`";
+    con.query(sql, function (err, result, fields) {
+        if (err) {
+            // console.log(err)
+            res.status(500).send("Server error");
+            console.log(err)
+        }
+        else {
+            res.json(result);
+            console.log(err)
+        }
+    });
+});
+
+//show product of guset page
+app.get("/product/guest", function (req, res) {
+    const sql = "SELECT description,model,location,room,product_status,image FROM `product` WHERE product_status=1";
+    con.query(sql, function (err, result, fields) {
+        if (err) {
+            // console.log(err)
+            res.status(500).send("Server error");
+            console.log(err)
+        }
+        else {
+            res.json(result);
+            console.log(err)
+        }
+    });
+});
+
+//productstatus
+app.get("/status/product", function (req, res) {
     const id = req.params.id;
-    const sql = "SELECT AS_IMGVIEW1,AS_IMGVIEW2 FROM addsheet WHERE AS_ID=? ";
+    const sql = "SELECT product_status FROM `product`";
     con.query(sql, [id], function (err, result, fields) {
         if (err) {
             console.log(err)
@@ -81,6 +113,104 @@ app.get("/sheetpreview/:id", function (req, res) {
         }
     });
 });
+
+//show product of user home page
+app.get("/product/user", function (req, res) {
+    const sql = "SELECT description,model,location,room,product_status,image FROM `product` ";
+    con.query(sql, function (err, result, fields) {
+        if (err) {
+            // console.log(err)
+            res.status(500).send("Server error");
+            console.log(err)
+        }
+        else {
+            res.json(result);
+            console.log(err)
+        }
+    });
+});
+
+//show import information
+app.get("/product/import/:years", function (req, res) {
+    const years = req.params.years;
+    const sql = "SELECT inventorynumber,asset,subnumber,description,model,serialnumber,location,room,receive_date,originalvalue,costcenter,department,vendername FROM `product`";
+    con.query(sql, [years], function (err, result, fields) {
+        if (err) {
+            // console.log(err)
+            res.status(500).send("Server error");
+            console.log(err)
+        }
+        else {
+            res.json(result);
+            console.log(err)
+        }
+    });
+});
+
+//show all status of product and who scan 
+app.get("/product/status/:years", function (req, res) {
+    const years = req.params.years;
+    const sql = "SELECT image,image_status,inventorynumber,description,model,location,room,committee,product_status FROM `product`";
+    con.query(sql,[years], function (err, result, fields) {
+        if (err) {
+            // console.log(err)
+            res.status(500).send("Server error");
+            console.log(err)
+        }
+        else {
+            res.json(result);
+            console.log(err)
+        }
+    });
+});
+
+//show committee in current year
+app.get("/committee/:years", function (req, res) {
+    const years = req.params.years
+    const sql = "SELECT email FROM `workyear` WHERE work_year=?";
+    con.query(sql, [years], function (err, result, fields) {
+        if (err) {
+            // console.log(err)
+            res.status(500).send("Server error");
+            console.log(err)
+        }
+        else {
+            res.json(result);
+            console.log(years)
+        }
+    });
+});
+
+//show committee in current year
+app.get("/committee/:years", function (req, res) {
+    const years = req.params.years
+    const sql = "SELECT email FROM `workyear` WHERE work_year=?";
+    con.query(sql, [years], function (err, result, fields) {
+        if (err) {
+            // console.log(err)
+            res.status(500).send("Server error");
+            console.log(err)
+        }
+        else {
+            res.json(result);
+            console.log(years)
+        }
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -277,7 +407,7 @@ app.post("/addsheet1", function (req, res) {
 //add sheet
 app.post("/addsheet", function (req, res) {
     const dt = new Date();
-    const { AS_FILE, AS_IMGCOVER, AS_IMGVIEW1 ,AS_IMGVIEW2, AS_DESC,AS_PRICE, AS_PAGE,AS_STATUS, S_ID } = req.body;
+    const { AS_FILE, AS_IMGCOVER, AS_IMGVIEW1, AS_IMGVIEW2, AS_DESC, AS_PRICE, AS_PAGE, AS_STATUS, S_ID } = req.body;
     const sql = "INSERT INTO addsheet (AS_FILE, AS_IMGCOVER, AS_IMGVIEW1 ,AS_IMGVIEW2, AS_DESC,AS_PRICE, AS_PAGE,AS_STATUS, AS_DATETIME, S_ID) VALUES (?,?,?,?,?,?,?,0,?,2)"
     con.query(sql, [AS_FILE, AS_IMGCOVER, AS_IMGVIEW1, AS_IMGVIEW2, AS_DESC, AS_PRICE, AS_PAGE, AS_STATUS, dt, S_ID], function (err, result, fields) {
 

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+        <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+</head>
+
+<script>
+        $(document).ready(function () {
+                //         $("#aa").click(function (e) {
+                //                 $("#modalAdd").modal("show")
+                //                 // alert("asdsad")
+                //         });
+                //         $("#saveadd").click(function(){
+                //                 gg=$("#conver")
+                //                 alert(gg)
+                //                 alert("asdasd")
+                //         })
+                // });
+                
+                // var selValue = $('input[name="selectcolor"]:checked').val();
+                $("#btnGetValue").click(function () {
+                        var color =    $("input[name='selectcolor']:checked").val();
+                        alert(color)
+
+                });
+
+                // $(document).ready(function () {
+                        // $('#btnGetValue').click(function () {
+                        //         var selValue = $("input[name='selectcolor']:checked").val();
+                        //         $('p').html('<br/>Selected Radio Button Value is : <b>' + selValue + '</b>');
+                        //         alert(selValue)
+                        // });
+
+                // });
+        });
+
+
+</script>
+
+<body>
+        <!-- <button id="aa">sdfdsf</button> -->
+
+        <input type="radio" name="selectcolor" value="Balck White" checked> Black & White
+        <input type="radio" name="selectcolor" value="Color" class="ml-4"> Color
+
+        <!-- <input type="radio" name="rbnNumber" value="1" /> Number 1<br />
+        <input type="radio" name="rbnNumber" value="2" /> Number 2 <br />
+        <input type="radio" name="rbnNumber" value="3" /> Number 3 -->
+        <br /><br />
+        <input type="button" id="btnGetValue" Value="Get Value" />
+        <p></p>
+
+
+</body>
+
+</html>

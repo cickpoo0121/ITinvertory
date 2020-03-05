@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+    <!-- <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script> -->
+    <link rel="stylesheet" href="style.css">
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    <title>History</title>
+</head>
+<style>
+    th {
+        background-color: #3f117d;
+        color: white;
+    }
+
+    #SelectTask {
+        background-color: #faa71b;
+        color: #fff;
+
+    }
+
+    #Success {
+        background-color: green;
+        color: white;
+    }
+
+    #Waiting {
+        background-color: #faa71b;
+        color: white;
+    }
+
+    #Printing {
+        background-color: blue;
+        color: white;
+    }
+
+    #cancel #status {
+        margin-top: 4px;
+        height: 34px;
+    }
+
+    .badge {
+        background-color: #f9a81b;
+        /* font-size: 20px; */
+        margin-top: 3px;
+    }
+</style>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar  ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><img src="./img/logo1.png" style="width: 150px;" alt=""></a>
+            <div class="list-inline mx-auto justify-content-center">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item "><a href="/home2" class="nav-link">Home</a></li>
+                    <li class="nav-item"> <a id="rate" class="nav-link">Rate Price</a></li>
+                    <li class="nav-item"> <a href="#" class="nav-link">Services</a></li>
+                    <li class="nav-item"> <a href="#" class="nav-link">Contact</a></li>
+                    <li class="nav-item"> <a href="#" class="nav-link active">History</a></li>
+
+                </ul>
+            </div>
+            <button class="btn btn-outline-warning" style="width: 150px; border: none;"><i
+                    class='fas fa-user-circle'></i> USER </button>
+
+            <button class="btn btn-outline-danger" style="width: 150px; border: none;" id="btnsignout"><i
+                    class='fas fa-user-circle'></i>LOG OUT</button>
+
+
+        </div>
+    </nav>
+
+    <div class="container text-center">
+        <div class="text-center mt-3">
+            <span class="mt-5" style="font-size: 30px;">HISTORIES</span>
+        </div>
+        <!-- <div class="card-group"> -->
+        <!-- <div class="card"> -->
+        <!-- <div class="card-body">
+            <form class="form-material m-t-20">
+                 <div class="row form-group"> -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="mytable" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <!-- <th>ON.</th> -->
+                                    <th>File</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                <!-- </div> -->
+            <!-- </form> -->
+        <!-- </div>  -->
+        <!-- </div> -->
+        <!-- Column -->
+        <!-- Column -->
+
+        <!-- </div> -->
+        <table id="mytable" class="table table-striped table-bordered" style="width: 100%">
+        </table>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="show" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Print request</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="txtID" class="form-control mb-1" placeholder="" disabled>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">OK</button> -->
+                </div>
+            </div>
+        </div>
+        <!-- Modal Rate-->
+        <div class="modal fade " id="modalrate" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-body">
+                    <div>
+                        <img src="./img/rate.jpg" style="width: 200%; ">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer font-small teal pt-4">
+        <div class="container-fluid text-center text-md-left" style="background-color: #242424;">
+            <div class="row ">
+                <div class="col-md-1">
+
+                </div>
+                <div class="col-md-4 mt-md-0 mt-3  text-light">
+                    <h3 class="text-uppercase mt-3 " id="everyday">EVERY DAY</h3>
+                    <h3>08:00- AM - 11:00 PM</h3>
+                </div>
+                <hr class="clearfix w-100 d-md-none pb-3 ">
+                <div class="col-md-5 mb-md-0 mb-3  text-light ">
+                    <div class="footercontact mt-3 text-right">
+                        <h2 class="text-uppercase ">CONTACT US</h2>
+                        <img src="./img/tel.png" style=" width:7%; height: 30% ;"> 085-325-411
+                        <img src="./img/fax.png" style=" width:7%; height: 30% ;"> 053-912-040
+                        <img src="./img/email.png" style="width:7%; height: 30% ;"> mrcopystaff@gmail.com
+                    </div>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        $(document).ready(function () {
+
+            var dataSet = [
+
+                {
+                    "file": "English1.doc",
+                    "date": "7/11/2019",
+
+                },
+                {
+                    "file": "FileWill.doc",
+                    "date": "11/11/2019",
+
+                },
+                {
+                    "file": "ManAndSo.doc",
+                    "date": "13/11/2019",
+
+                },
+                {
+                    "file": "English3.doc",
+                    "date": "16/11/2019",
+
+                },
+                {
+                    "file": "Math_1.doc",
+                    "date": "25/11/2019",
+
+                },
+                {
+                    "file": "wk6.doc",
+                    "date": "28/11/2019",
+
+                },
+                {
+                    "file": "สรุปจีน1.doc",
+                    "date": "30/11/2019",
+
+                },
+                {
+                    "file": "DataBase.doc",
+                    "date": "2/12/2019",
+
+                }
+            ];
+
+            var table = $("#mytable").DataTable({
+                data: dataSet,
+                deferRender: true,
+                columns: [
+                    { data: "file" },
+                    { data: "date" },
+                    { defaultContent: "<span class='badge badge-warning text-white'><h6>Waiting</h6></span>", orderable: false },
+                    { defaultContent: "<span id='cancel' class='btn btn-danger'><h6>Cancel</h6></span>", orderable: false
+                        // render: function (data, type, full, meta) {
+                        //     return data ? "<span class='badge badge-primary'>New</span>" : '';
+                        // }
+                    }],
+
+                responsive: true
+            });
+
+
+            
+
+            // $("#mytable tbody").on('click', '#SelectTask', function () {
+            //     // $("#mytable tbody").on('click', '#SelectTask', function () {
+            //     $('#SelectTask').change(function () {
+            //         var ch = $("#SelectTask").val();
+            //         console.log(ch)
+            //         if (ch == 3) {
+            //             $('#SelectTask').css("background-color", "green");
+            //             $('#SelectTask').css("color", "white");
+            //         }
+            //         else if (ch == 1) {
+            //             $('#SelectTask').css("background-color", "#faa71b");
+            //             $('#SelectTask').css("color", "white");
+            //         } else {
+            //             $('#SelectTask').css("background-color", "blue");
+            //             $('#SelectTask').css("color", "white");
+            //         }
+            //     });
+            // });
+
+
+            $("#btnsignout").click(function (e) {
+                window.location.replace("/")
+            });
+            $("#rate").click(function () {
+                $("#modalrate").modal("show");
+                // $("#modalAdd").modal("hide");
+            })
+        });
+
+
+    </script>
+</body>
+
+</html>
