@@ -151,7 +151,7 @@ app.get("/product/import/:years", function (req, res) {
 app.get("/product/status/:years", function (req, res) {
     const years = req.params.years;
     const sql = "SELECT image,image_status,inventorynumber,description,model,location,room,committee,product_status FROM `product`";
-    con.query(sql,[years], function (err, result, fields) {
+    con.query(sql, [years], function (err, result, fields) {
         if (err) {
             // console.log(err)
             res.status(500).send("Server error");
@@ -181,22 +181,7 @@ app.get("/committee/:years", function (req, res) {
     });
 });
 
-//show committee in current year
-app.get("/committee/:years", function (req, res) {
-    const years = req.params.years
-    const sql = "SELECT email FROM `workyear` WHERE work_year=?";
-    con.query(sql, [years], function (err, result, fields) {
-        if (err) {
-            // console.log(err)
-            res.status(500).send("Server error");
-            console.log(err)
-        }
-        else {
-            res.json(result);
-            console.log(years)
-        }
-    });
-});
+
 
 
 
@@ -307,6 +292,51 @@ app.put("/cancel/:id", function (req, res) {
 
 
 //===========================Admin================================//
+
+//working history page
+app.get("/workingHistory", function (req, res) {
+    const sql = "SELECT name,year FROM user"
+    con.query(sql, function (err, result, fields) {
+        if (err) {
+            res.status(500).send("Server error");
+        }
+        else {
+            res.json(result);
+        }
+    });
+});
+
+//user status //working history page
+// app.put("/userStatus/:id", function(req, res){
+//     const id = req.params.id;
+//     const status = req.params.status;
+//     const sql = "UPDATE user SET status=? WHERE id=?"
+//     con.query(sql, function (err, result, fields) {
+//         if (err) {
+//             res.status(500).send("Server error");
+//         }
+//         else {
+//             res.json(result);
+//         }
+//     });
+// });
+
+//assign work to committee //working history page
+app.post("/assign/committee", function (req, res) {
+    const year = new Date();
+    const email = req.params.email;
+    const sql = "INSERT INTO workyear (year,email) VALUES (year,?)"
+    con.query(sql, function (err, result, fields) {
+        if (err) {
+            res.status(500).send("Server error");
+        }
+        else {
+            res.json(result);
+        }
+    });
+});
+
+//----
 
 
 //Get sheet request
