@@ -31,23 +31,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 
 
-//Passrord encryption
-// app.get("/password/:pass", function (req, res) {
-//     const pass = req.params.pass;
-//     const salt = 10;
-
-//     bcrypt.hash(pass, salt, function (err, hash) {
-//         if (err) {
-//             res.status(500).send("Hasshing failed");
-//         }
-//         else {
-//             // console.log(hash.length)
-//             res.send(hash);
-//         }
-//     });
-// });
-
-
 //===========================User================================//
 
 //get years
@@ -133,7 +116,7 @@ app.get("/product/user", function (req, res) {
 //show import information
 app.get("/product/import/:years", function (req, res) {
     const years = req.params.years;
-    const sql = "SELECT inventorynumber,asset,subnumber,description,model,serialnumber,location,room,receive_date,originalvalue,costcenter,department,vendername FROM `product`";
+    const sql = "SELECT inventorynumber,asset,subnumber,description,model,serialnumber,location,room,receive_date,originalvalue,costcenter,department,vendername FROM `product` WHERE product_year=?";
     con.query(sql, [years], function (err, result, fields) {
         if (err) {
             // console.log(err)
@@ -150,7 +133,7 @@ app.get("/product/import/:years", function (req, res) {
 //show all status of product and who scan 
 app.get("/product/status/:years", function (req, res) {
     const years = req.params.years;
-    const sql = "SELECT image,image_status,inventorynumber,description,model,location,room,committee,product_status FROM `product`";
+    const sql = "SELECT image,image_status,inventorynumber,description,model,location,room,committee,product_status FROM `product` WHERE product_year=?";
     con.query(sql, [years], function (err, result, fields) {
         if (err) {
             // console.log(err)
@@ -182,116 +165,63 @@ app.get("/committee/:years", function (req, res) {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-app.post("/uploadsheet", function (req, res) {
-    upload(req, res, function (err, result) {
-        if (err) {
-            res.status(500).send("Upload failed");
-            return;
-        }
-        else {
-            res.json(req.file.filename)
-            console.log(req.file.filename)
-        }
-    })
-});
-
-
-app.post("/uploadsheet1", function (req, res) {
-    // const username = req.body.username;
-    // const password = req.body.password;
-    const dt = new Date();
-    const { SU_FILE, SU_COPIES, SU_RANGE, SU_PAPERTPE, SU_COLOR, SU_ORIENTATION, SU_DUPLEXPRINTING, SU_STATUS, U_ID } = req.body;
-    const sql = "INSERT INTO sheetupload (SU_FILE, SU_COPIES, SU_RANGE, SU_PAPERTPE, SU_COLOR, SU_ORIENTATION, SU_DUPLEXPRINTING, SU_DATETIME, SU_STATUS, U_ID) VALUES (?,?,?,?,?,?,?,?,0,2)"
-    con.query(sql, [SU_FILE, SU_COPIES, SU_RANGE, SU_PAPERTPE, SU_COLOR, SU_ORIENTATION, SU_DUPLEXPRINTING, dt, SU_STATUS, U_ID], function (err, result, fields) {
-        if (err) {
-            res.status(503).send("DB error")
-            console.log(err)
-        }
-        else {
-            const rows = result.affectedRows;
-            if (rows != 1) {
-                res.status(503).send("Insertion error");
-            }
-            else {
-                res.send("/history")
-            }
-        }
-    });
-
-    // });
-
-});
-
-//show all sheet of admin upload
-app.get("/userselect", function (req, res) {
-    const sql = "SELECT AS_ID, AS_IMGCOVER,AS_DESC,AS_PAGE,AS_PRICE FROM addsheet WHERE AS_STATUS=0";
-    con.query(sql, function (err, result, fields) {
-        if (err) {
-            // console.log(err)
-            res.status(500).send("Server error");
-        }
-        else {
-            res.json(result);
-            // console.log(err)
-        }
-    });
-});
-
-//Gethistory
-app.get("/usertask/:U_ID", function (req, res) {
-    const U_ID = req.params.U_ID;
-
-    const sql = "SELECT su.SU_ID, su.SU_FILE,su.SU_DATETIME,su.SU_STATUS FROM mycopy.sheetupload su, mycopy.user usr WHERE su.U_ID=usr.U_ID and usr.U_ID=? ";
-    con.query(sql, [U_ID], function (err, result, fields) {
-        if (err) {
-            // console.log(err)
-            res.status(500).send("Server error");
-            console.log(err)
-        }
-        else {
-            res.json(result);
-            console.log(U_ID)
-        }
-    });
-});
-
-//cancel
-app.put("/cancel/:id", function (req, res) {
-    const id = req.params.id
-    const sql = "UPDATE sheetupload SET SU_STATUS=3 where SU_ID=?"
-    con.query(sql, [id], function (err, result, fields) {
-
-        if (err) {
-            res.status(503).send("DB error")
-        }
-        else {
-            res.send("Cancel success")
-            // console.log("upload done");
-        }
-    })
-});
-
 ///////////////////////////////////////////////////////////////////
 
 
 //===========================Admin================================//
+
+//set datealert
+app.post("/datealert", function (req, res) {
+    const year = new Date();
+    const datestart = req.body.datestart;
+    const dateend = req.body.dateend;
+    const sql = "INSERT INTO workyear (year_alert,date_start,date_end) VALUES (?,?,?)"
+    con.query(sql, [year, datestart, dateend], function (err, result, fields) {
+        if (err) {
+            res.status(500).send("Server error");
+        }
+        else {
+            res.json(result);
+        }
+    });
+});
+
+//update datealert
+app.put("/datealert/update", function (req, res) {
+    // const year = new Date()
+    const datestart = req.body.datestart;
+    const dateend = req.body.dateend;
+    const sql = "UPDATE `datealert` SET `date_start` = ?,date_end=? WHERE `year_alert` = 1"
+    con.query(sql, [year, datestart, dateend, id], function (err, result, fields) {
+        if (err) {
+            res.status(500).send("Server error");
+        }
+        else {
+            res.json(result);
+        }
+    });
+});
+
+//must be take photo
+app.put("/takephoto/:year", function (req, res) {
+    const year = req.params.id;
+    con.query( function (err, result, fields) {
+        if (err) {
+            res.status(500).send("Server error");
+        }
+        else {
+            const invenNum=req.params.invenNum
+            const sql = "UPDATE `product` SET `image_status` = 1 WHERE roduct_year=? AND inventorynumber=?"
+            c0n.query(sql, [year,invenNum], function (err, result) {
+                res.send("Update success")
+                // console.log(id);
+            })
+            res.json(result);
+        }
+    });
+});
+
+
 
 //working history page
 app.get("/workingHistory", function (req, res) {
@@ -306,27 +236,13 @@ app.get("/workingHistory", function (req, res) {
     });
 });
 
-//user status //working history page
-// app.put("/userStatus/:id", function(req, res){
-//     const id = req.params.id;
-//     const status = req.params.status;
-//     const sql = "UPDATE user SET status=? WHERE id=?"
-//     con.query(sql, function (err, result, fields) {
-//         if (err) {
-//             res.status(500).send("Server error");
-//         }
-//         else {
-//             res.json(result);
-//         }
-//     });
-// });
 
 //assign work to committee //working history page
 app.post("/assign/committee", function (req, res) {
     const year = new Date();
-    const email = req.params.email;
-    const sql = "INSERT INTO workyear (year,email) VALUES (year,?)"
-    con.query(sql, function (err, result, fields) {
+    const email = req.body.email;
+    const sql = "INSERT INTO workyear (year,email) VALUES (?,?)"
+    con.query(sql, [year, email], function (err, result, fields) {
         if (err) {
             res.status(500).send("Server error");
         }
@@ -336,161 +252,7 @@ app.post("/assign/committee", function (req, res) {
     });
 });
 
-//----
 
-
-//Get sheet request
-app.get("/request", function (req, res) {
-    // const U_ID = req.params.U_ID;
-    const sql = "SELECT su.SU_FILE,usr.U_NAME,usr.U_PHONE,usr.U_EMAIL,su.SU_DATETIME,su.SU_STATUS FROM mycopy.sheetupload su,mycopy.user usr WHERE su.U_ID=usr.U_ID";
-    con.query(sql, function (err, result, fields) {
-        if (err) {
-            console.log(err)
-            res.status(500).send("Server error");
-        }
-        else {
-            res.json(result);
-            console.log(err)
-        }
-    });
-});
-
-//file infor before download
-app.get("/downloadsheet/:id", function (req, res) {
-    const id = req.params.id
-    const sql = "SELECT SU_FILE,SU_COPIES,SU_RANGE,SU_PAPERTPE,SU_COLOR,SU_ORIENTATION,SU_DUPLEXPRINTING,SU_DATETIME FROM sheetupload WHERE SU_ID=? "
-    con.query(sql, [id], function (err, result, fields) {
-
-        if (err) {
-            // console.log("upload failed");
-            res.status(500).send("Download failed")
-        }
-        else {
-            res.json(result)
-            // console.log("upload done");
-        }
-    });
-});
-
-//Download
-app.put("/download/:id", function (req, res) {
-    const id = req.params.id
-    const sql = "UPDATE sheetupload SET SU_STATUS=1 where SU_ID=?"
-    con.query(sql, [id], function (err, result, fields) {
-
-        if (err) {
-            // console.log("upload failed");
-            res.status(500).send("Download failed")
-        }
-        else {
-            res.send("Update success")
-            // console.log("upload done");
-        }
-    });
-});
-
-//Confirm
-app.put("/confirm/:id", function (req, res) {
-    const id = req.params.id
-    const sql = "UPDATE sheetupload SET SU_STATUS=2 where SU_ID=?"
-    con.query(sql, [id], function (err, result, fields) {
-
-        if (err) {
-            // console.log("upload failed");
-            res.status(500).send("Download failed")
-        }
-        else {
-            res.send("success")
-            // console.log("upload done");
-        }
-    });
-});
-
-//show all sheet of admin upload ===Rename+++ where 
-app.get("/userselect", function (req, res) {
-    const sql = "SELECT AS_IMGCOVER,AS_DESC,AS_PAGE,AS_PRICE FROM addsheet";
-    con.query(sql, function (err, result, fields) {
-        if (err) {
-            // console.log(err)
-            res.status(500).send("Server error");
-        }
-        else {
-            res.json(result);
-            console.log(err)
-        }
-    });
-});
-
-app.post("/addsheet1", function (req, res) {
-    upload1(req, res, function (err, result) {
-        if (err) {
-            res.status(500).send("Upload failed");
-            return;
-        }
-        else {
-            res.json(req.files)
-            console.log(req.files[0].filename)
-        }
-    })
-});
-
-//add sheet
-app.post("/addsheet", function (req, res) {
-    const dt = new Date();
-    const { AS_FILE, AS_IMGCOVER, AS_IMGVIEW1, AS_IMGVIEW2, AS_DESC, AS_PRICE, AS_PAGE, AS_STATUS, S_ID } = req.body;
-    const sql = "INSERT INTO addsheet (AS_FILE, AS_IMGCOVER, AS_IMGVIEW1 ,AS_IMGVIEW2, AS_DESC,AS_PRICE, AS_PAGE,AS_STATUS, AS_DATETIME, S_ID) VALUES (?,?,?,?,?,?,?,0,?,2)"
-    con.query(sql, [AS_FILE, AS_IMGCOVER, AS_IMGVIEW1, AS_IMGVIEW2, AS_DESC, AS_PRICE, AS_PAGE, AS_STATUS, dt, S_ID], function (err, result, fields) {
-
-        if (err) {
-            // console.log("upload failed");
-            res.status(500).send("Upload failed")
-            console.log(err)
-        }
-        else {
-            res.send("Upload done");
-            // console.log(err);
-        }
-    })
-
-});
-
-//Edit
-app.put("/edit/:id", function (req, res) {
-    const id = req.params.id;
-    const { AS_FILE, AS_IMGCOVER, AS_IMGVIEW1, AS_IMGVIEW2, AS_DESC, AS_PRICE, AS_PAGE, AS_DATETIME, S_ID } = req.body;
-
-    const sql = "UPDATE addsheet SET AS_FILE=?, AS_IMGCOVER=?, AS_IMGVIEW1=?, AS_IMGVIEW2=?, AS_DESC=?, AS_PRICE=?, AS_PAGE=?, AS_DATETIME=?, S_ID=? WHERE AS_ID=? "
-
-    con.query(sql, [AS_FILE, AS_IMGCOVER, AS_IMGVIEW1, AS_IMGVIEW2, AS_DESC, AS_PRICE, AS_PAGE, AS_DATETIME, S_ID, id], function (err, result) {
-        if (err) {
-            console.log(err);
-            res.status(500).send("DB error")
-        }
-        else {
-            res.send("Edit done")
-            // console.log(id);
-        }
-    })
-});
-
-//On/OFF
-app.put("/toggle/:id", function (req, res) {
-    var id = req.params.id
-    upload(req, res, function (err) {
-        if (err) {
-            // console.log("upload failed");
-            res.status(500).send("Upload failed")
-        }
-        else {
-            const sql = "UPDATE addsheet SET AS_STATUS=1 where AS_ID=?"
-            con.query(sql, [id], function (err, result) {
-
-                res.send("Update success")
-                // console.log(id);
-            })
-        }
-    });
-});
 
 //Login
 app.post("/login", function (req, res) {
@@ -538,58 +300,6 @@ app.post("/login", function (req, res) {
     })
 })
 
-// Get User Name
-// app.get("/Name",function(req, res){
-//     // const username = req.params.username;
-//     const username=req.body.username
-//     const sql = "SELECT U_NAME FROM user where U_USERNAME=?";
-//     con.query(sql,[username], function (err, result, fields) {
-//         if (err) {
-//             // console.log(err)
-//             res.status(500).send("Server error");
-//         }
-//         else {
-//             res.json(result);
-//         }
-//     });
-// });
-
-
-//Sign up
-
-app.post("/signUp", function (req, res) {
-    // const username = req.body.username;
-    // const password = req.body.password;
-    const { U_USERNAME, U_PASSWORD, U_NAME, U_PHONE, U_EMAIL, U_ROLE, S_ID } = req.body;
-
-    //hash password
-    bcrypt.hash(U_PASSWORD, 10, function (err, hash) {
-        if (err) {
-            res.status(500).send("Hasshing failed");
-            console.log(err)
-        }
-        else {
-            const sql = "INSERT INTO user (U_USERNAME,U_PASSWORD,U_NAME,U_PHONE,U_EMAIL,U_ROLE,S_ID) VALUES (?,?,?,?,?,2,?)"
-            // const sql = "INSERT INTO user (U_USERNAME,U_PASSWORD,U_ROLE,S_ID) VALUES (?,?,1,1)"
-            con.query(sql, [U_USERNAME, hash, U_NAME, U_PHONE, U_EMAIL, U_ROLE, S_ID], function (err, result, fields) {
-                if (err) {
-                    res.status(503).send("DB error")
-                    console.log(err)
-                }
-                else {
-                    const rows = result.affectedRows;
-                    if (rows != 1) {
-                        res.status(503).send("Insertion error");
-                    }
-                    else {
-                        res.send("/home2")
-                    }
-                }
-            });
-        }
-    });
-
-});
 
 //
 
