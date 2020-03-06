@@ -171,14 +171,16 @@ app.get("/committee/:years", function (req, res) {
 //===========================Admin================================//
 
 //set datealert
-app.post("/datealert", function (req, res) {
-    const year = new Date();
+app.post("/datealert/insert", function (req, res) {
+    date=new Date();
+    const year = date.getFullYear();
     const datestart = req.body.datestart;
     const dateend = req.body.dateend;
-    const sql = "INSERT INTO workyear (year_alert,date_start,date_end) VALUES (?,?,?)"
+    const sql = "INSERT INTO datealert (year_alert,date_start,date_end) VALUES (?,?,?)"
     con.query(sql, [year, datestart, dateend], function (err, result, fields) {
         if (err) {
             res.status(500).send("Server error");
+            console.log(err)
         }
         else {
             res.json(result);
@@ -187,11 +189,11 @@ app.post("/datealert", function (req, res) {
 });
 
 //update datealert
-app.put("/datealert/update", function (req, res) {
-    // const year = new Date()
+app.put("/datealert/update/:year", function (req, res) {
+    const year = new Date()
     const datestart = req.body.datestart;
     const dateend = req.body.dateend;
-    const sql = "UPDATE `datealert` SET `date_start` = ?,date_end=? WHERE `year_alert` = 1"
+    const sql = "UPDATE `datealert` SET `date_start` = ?,date_end=? WHERE `year_alert` = ?"
     con.query(sql, [year, datestart, dateend, id], function (err, result, fields) {
         if (err) {
             res.status(500).send("Server error");
@@ -203,19 +205,15 @@ app.put("/datealert/update", function (req, res) {
 });
 
 //must be take photo
-app.put("/takephoto/:year", function (req, res) {
+app.put("/takephoto/:year/:invenNum", function (req, res) {
     const year = req.params.id;
-    con.query( function (err, result, fields) {
+    const invenNum=req.params.invenNum;
+    const sql = "UPDATE `product` SET `image_status` = 1 WHERE roduct_year=? AND inventorynumber=?"
+    con.query(sql,[year,invenNum], function (err, result, fields) {
         if (err) {
             res.status(500).send("Server error");
         }
         else {
-            const invenNum=req.params.invenNum
-            const sql = "UPDATE `product` SET `image_status` = 1 WHERE roduct_year=? AND inventorynumber=?"
-            c0n.query(sql, [year,invenNum], function (err, result) {
-                res.send("Update success")
-                // console.log(id);
-            })
             res.json(result);
         }
     });
@@ -251,6 +249,16 @@ app.post("/assign/committee", function (req, res) {
         }
     });
 });
+
+
+
+
+
+
+
+
+
+
 
 
 
