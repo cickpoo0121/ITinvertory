@@ -14,7 +14,7 @@ get http://localhost:8080/product/guest
 Content-Type: application/json
 
 ### productstatus
-get http://localhost:8080/status/product
+get http://localhost:8080/product/countstatus
 Content-Type: application/json
 
 ### show product of user home page
@@ -44,20 +44,20 @@ post http://localhost:8080/datealert/insert
 Content-Type: application/json
 
 { 
-   "date_start":"2020-03-06", 
-   "date_end":"2020-04-13"
+   "datestart":"2020-03-06", 
+   "dateend":"2020-04-13"
 }
 
 ### update datealert
-put http://localhost:8080/datealert/update/6
+put http://localhost:8080/datealert/update/2020
 Content-Type: application/json
 
 {
-  "date_start":"2020-03-06", 
-  "date_end":"2020-04-13"  
+  "datestart":"2020-08-13", 
+  "dateend":"2020-09-13"  
 }
 
-### update datealert
+### 
 put http://localhost:8080/takephoto/2020/1212
 Content-Type: application/json
 
@@ -67,5 +67,9 @@ get http://localhost:8080/workingHistory
 Content-Type: application/json
 
 ### assign committee
-put http://localhost:8080/assign/committee
+post http://localhost:8080/assign/committee
 Content-Type: application/json
+
+{
+   
+}
