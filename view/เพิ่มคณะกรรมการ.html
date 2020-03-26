@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+    
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <title>การตรวจสอบและนับครุภัณฑ์</title>
+    <style>
+        #log {
+            width: 100px;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <div>
+        <div class="row">
+            <div class="col-11">
+                <img src="C:\Users\User\Desktop\Final_UI\รูปที่ใช้/LOGO.png" alt="LOGO" style="width: 450px;">
+            </div>
+            <div class="col-1">
+               
+                <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="account.png"  id="log" class="user-avatar-md rounded-circle"></a>
+                <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
+                    <div class="nav-user-info">
+                        <p class="mb-0 text-dark nav-user-name text-center"> ธิดาพร​ ชาวคูเวียง</p>
+                        
+                    </div>
+                
+                    <a class="dropdown-item" href="#"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                </div>
+            </li>
+            </div>
+        </div>
+
+    </div>
+    <!-- Header -->
+
+    <!-- Menu -->
+    <div>
+
+        <nav class="navbar navbar-expand-lg navbar-light  " style="background-color: #fe0000;">
+            <a class="navbar-brand ml-5" href="#"></a>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item  ml-5">
+                        <a href="หน้าแรกแอดมิน.html" class="nav-link text-light ">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item ml-5">
+                        <a class="nav-link text-light" href="สถานะครุภัณฑ์แอดมิน.html">สถานะครุภัณฑ์</a>
+                    </li>
+                    <li class="nav-item ml-5">
+                        <a class="nav-link text-light " href="ประวัติกรรมแอดมิน.html">คณะกรรมการประจำปี</a>
+                    </li>
+                    <li class="nav-item ml-5 active">
+                        <a class=" btn btn-rounded btn-light " href="#">เพิ่มคณะกรรมการ</a>
+                    </li>
+                    <li class="nav-item ml-5">
+                        <a class="nav-link text-light " href="แก้ไขวันที่.html">เวลาการตรวจสอบครุภัณฑ์</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- Menu -->
+
+    <!-- Add Commitee -->
+
+    <div class="row mt-3">
+        <div class="col-9">
+
+        </div>
+        <div class="col-3">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+                เพิ่มกรรมการ
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">แต่งตั้งตณะกรรมการ</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>อีเมล์กรรมการ</p>
+                            <input type="email" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="ป้อนอีเมลล์">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+                            <button type="button" class="btn btn-primary">บันทึก</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Add Commitee -->
+
+    <!-- Table -->
+    <div class="container mt-5">
+
+        <div class="">
+            <div class="card">
+                <div class="row card-header ">
+                    <div class="col-9">
+                        <h5>รายชื่อคณะกรรมมการ</h5>
+                    </div>
+                    <div class="col-3">
+                        <input type="search" class="form-control form-control-sm" placeholder="ค้นหา">
+                    </div>
+                </div>
+
+                <div class="card-body p-0 te">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="bg-light ">
+                                <tr class="border-0">
+                                    <th class="border-0">#</th>
+                                    <th class="border-0">รูปภาพ</th>
+                                    <th class="border-0">รายชื่อคณะกรรมมการ</th>
+                                    <th class="border-0">อีเมล์</th>
+                                    <th class="border-0">เบอร์โทรศัพท์</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        <div class="m-r-10"><img src="assets/images/product-pic.jpg" alt="user"
+                                                class="rounded" width="45"></div>
+                                    </td>
+                                    <td>สมใจ จะแล้วไหม</td>
+                                    <td>somjai@mfu.ac.th </td>
+                                    <td>087-894-5214</td>
+
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        <div class="m-r-10"><img src="assets/images/product-pic-2.jpg" alt="user"
+                                                class="rounded" width="45"></div>
+                                    </td>
+                                    <td>สมชัย ตามหาดี</td>
+                                    <td>somchai@mfu.ac.th</td>
+                                    <td>087-894-5244</td>
+
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>
+                                        <div class="m-r-10"><img src="assets/images/product-pic-3.jpg" alt="user"
+                                                class="rounded" width="45"></div>
+                                    </td>
+                                    <td>สมหวัง หากะลา</td>
+                                    <td>somwang@mfu.ac.th</td>
+                                    <td>087-894-1257</td>
+
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>
+                                        <div class="m-r-10"><img src="assets/images/product-pic-4.jpg" alt="user"
+                                                class="rounded" width="45"></div>
+                                    </td>
+                                    <td>สายป่าน หลงป่า</td>
+                                    <td>saipan@mfu.ac.th</td>
+                                    <td>087-782-1456</td>
+
+                                </tr>
+
+                                <tr>
+                                    <td>5</td>
+                                    <td>
+                                        <div class="m-r-10"><img src="assets/images/product-pic-4.jpg" alt="user"
+                                                class="rounded" width="45"></div>
+                                    </td>
+                                    <td>ธิดาพร ชาวคูเวียง</td>
+                                    <td>tidapon@mfu.ac.th</td>
+                                    <td>088-888-8888</td>
+
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Table -->
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <footer class="page-footer font-small blue mt-5" style="background-color: #fe0000;">
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3 text-light">© 2020 POWERSOL</div>
+        <!-- Copyright -->
+
+    </footer>
+    <!-- Footer -->
+
+</body>
+
+</html>

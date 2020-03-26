@@ -58,8 +58,15 @@ Content-Type: application/json
 }
 
 ### 
-put http://localhost:8080/takephoto/2020/1212
+put http://localhost:8080/takephoto/2019
 Content-Type: application/json
+
+{
+"records":[{"invenNum":"1"},
+            {"invenNum":"2"}]
+}
+
+
 
 
 ### working history page

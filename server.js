@@ -4,6 +4,7 @@ const path = require("path");
 const body_parser = require("body-parser");
 const mysql = require("mysql");
 const config = require("./dbConfig.js");
+const multer = require("multer");
 
 
 const product = require("./routes/productroute");
@@ -12,6 +13,17 @@ const datealert = require("./routes/datealertroute");
 const app = express();
 const con = mysql.createConnection(config);
 
+const storageOption = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + "_" + file.originalname);
+    }
+});
+const upload = multer({ storage: storageOption }).single("fileUpload");
+// const upload1 = multer({ storage: storageOption }).array("addfileUpload");
+ 
 
 //Middleware
 app.use(body_parser.json());
@@ -66,18 +78,29 @@ app.get("/committee/:years", function (req, res) {
 //===========================Admin================================
 
 //must be take photo แก้ติ๊กหลสยๆอัน 
-app.put("/takephoto/:year/:invenNum", function (req, res) {
-    const year = req.params.id;
-    const invenNum=req.params.invenNum;
-    const sql = "UPDATE `product` SET `image_status` = 1 WHERE roduct_year=? AND inventorynumber=?"
-    con.query(sql,[year,invenNum], function (err, result, fields) {
+app.put("/takephoto/:year", function (req, res) {
+    const year = req.params.year;
+    const records=req.body.records;
+     
+    // const invenNum = req.body.invenNum;
+    const sql = "UPDATE `product` SET `image_status` = 4 WHERE product_year=? AND inventorynumber IN (?)"
+
+    // connection.query('update UserRequests set RequestStatus = ?, ReqCompletedDateTime = ? where idRequest IN (?)', ['Completed', new Date(), idsArray.join()], function(err, rows){
+    //     connection.release();
+    //   });
+    for(i=0;i<=records.length;i++){
+    con.query(sql,[year,records[i].invenNum], function (err, result, fields) {
         if (err) {
             res.status(500).send("Server error");
+            console.log(err);
         }
         else {
             res.json(result);
+            console.log(records.length)
         }
+        
     });
+    }
 });
 
 //assign work to committee //working history page
