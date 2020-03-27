@@ -5,7 +5,11 @@ const body_parser = require("body-parser");
 const mysql = require("mysql");
 const config = require("./dbConfig.js");
 const multer = require("multer");
+const passport = require("passport");
+// const cookieSession = require("cookie-session");
 
+//import auth
+const authRoutes = require("./routes/auth-routes");
 
 const product = require("./routes/productroute");
 const datealert = require("./routes/datealertroute");
@@ -33,6 +37,9 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/product",product);
 app.use("/datealert",datealert);
+
+// authen
+app.use("/auth", authRoutes);
 
 
 
