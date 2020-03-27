@@ -123,12 +123,12 @@ app.post("/assign/committee", function (req, res) {
 
 //root
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "/view/Home1.html"))
+    res.sendFile(path.join(__dirname, "/view/login.html"))
 });
 
 //signup
-app.get("/signup", function (req, res) {
-    res.sendFile(path.join(__dirname, "/view/signup.html"))
+app.get("/guest", function (req, res) {
+    res.sendFile(path.join(__dirname, "/view/หน้าแรกผู้ใช้ทั่วไป.html"))
 });
 
 //login
