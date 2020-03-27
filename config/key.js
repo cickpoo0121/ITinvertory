@@ -1,0 +1,9 @@
+module.exports={
+    google:{
+        clientID:"560528177138-cdk7cg3ra6m7c96lhd28in75g86mpijv.apps.googleusercontent.com",
+        clientSecret:"lMzNRCihKkr979Mid2m4maPU"
+    },
+    cookie:{
+        secret:"itinv"
+    }
+}

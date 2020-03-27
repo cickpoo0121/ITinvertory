@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+    <link rel="stylesheet" href="landingpage.css">
+    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <title>การตรวจสอบและนับครุภัณฑ์</title>
+</head>
+
+<body>
+    <!-- Header -->
+    <div>
+        <div class="row">
+
+            <div class="col-1">
+                <img src="/img/logo.png" alt="LOGO" style="width: 450px;">
+            </div>
+            <div style="margin-left: 80%; margin-top: 2%;">
+                <button class="btn btn-primary" style="width: 100px;" id="log">เข้าสู่ระบบ</button>
+            </div>
+        </div>
+
+    </div>
+    <!-- Header -->
+
+    <!-- Menu -->
+    <div>
+
+        <nav class="navbar navbar-expand-lg navbar-light  " style="background-color: #253b6d;">
+            <a class="navbar-brand ml-5" href="#"></a>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active ml-1">
+                        <a href="#" class="btn btn-rounded btn-light  ">หน้าแรก</a>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <!-- Menu -->
+
+
+    <!--words-->
+    <div class="ml-5" style="margin-top: 20px;">
+        <h2>ข้อมูลครุภัณฑ์​ ประจำปี​ 2563</h2>
+    </div>
+    <!--words-->
+
+
+    <!-- <div class="container">
+        
+    </div> -->
+
+   <div class="container-fluid text-center">
+       <!--Table-->
+       <table class="table" id="mytable" style="width:100%">
+        <thead>
+            <tr>
+                <th>ลำดับ</th>
+                <th>คำอธิบาย</th>
+                <th>ยี่ห้อ</th>
+                <th>สถานที่</th>
+                <th>สถานะ</th>
+            </tr>
+        </thead>
+    </table>
+   </div>
+
+
+
+    <!-- ใส่โค้ดตรงกลางนะจ้า -->
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <div style="margin-top: 5%;">
+        <footer class="page-footer font-small blue " style="background-color: #253b6d;">
+
+            <!-- Copyright -->
+            <div class="footer-copyright text-center py-3 text-light">© 2020 POWERSOL</div>
+            <!-- Copyright -->
+
+        </footer>
+    </div>
+
+
+
+    <!-- Footer -->
+
+</body>
+<script>
+    $(document).ready(function () {
+
+        var dataSet = [
+            {
+                "No": "1",
+                "desc": "เครื่องถ่ายเอกสาร",
+                "brand": "HSM/104.2",
+                "location": "E3A-401",
+                "status": "ปกติ"
+
+            },
+            {
+                "No": "2",
+                "desc": "โต๊ะ",
+                "brand": "-",
+                "location": "S7-401",
+                "status": "สูญหาย"
+
+            },
+            {
+                "No": "3",
+                "desc": "กล้อง",
+                "brand": "fujiXA-2",
+                "location": "S7-401",
+                "status": "ปกติ"
+
+            },
+            {
+                "No": "4",
+                "desc": "เครื่องถ่ายเอกสาร",
+                "brand": "HSM/104.2",
+                "location": "E3A-401",
+                "status": "ปกติ"
+
+            },
+            {
+                "No": "5",
+                "desc": "โต๊ะ",
+                "brand": "-",
+                "location": "S7-401",
+                "status": "สูญหาย"
+
+            },
+            {
+                "No": "6",
+                "desc": "กล้อง",
+                "brand": "fujiXA-2",
+                "location": "S7-401",
+                "status": "ปกติ"
+
+            },
+
+        ];
+
+        var table = $("table#mytable").DataTable({
+            data: dataSet,
+            // "searching": false,
+            // "paging": false,
+            "ordering": false,
+            "info": false,
+            "lengthChange": false,
+            deferRender: true,
+            columns: [
+                // {
+                //     data: 'No',
+                //     render: function (data, type, full, meta) {
+                //         // return '<img src="' + data + '" no-repeat center center /cover >';
+                //         return '<img src="' + data + '" no-repeat center center /cover >';
+                //         // return image ? `<div style=" background-image: url('${data}') no-repeat center center /cover "></div>` : 'No image';
+                //     }
+                // },
+                { data: "No" },
+                { data: "desc" },
+                { data: "brand" },
+                { data: "location" },
+                { data: "status" }
+                // { defaultContent: "<button id='btnPrint' class='btn btn-success'>Print</button> ", orderable: false },
+                // { defaultContent: "<button id='view' class='btn btn-primary'>View</button>", orderable: false }
+            ],
+            responsive: true
+        });
+
+        $(".btn-primary").click(function () {
+
+            window.location.replace("/")
+        });
+    });
+</script>
+
+</html>
